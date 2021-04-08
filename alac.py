@@ -23,10 +23,13 @@ def validate_theme(usr_theme):
 
 #Lisiting Out Available Themes
 def list_themes():
-    themes = os.listdir("themes")
-    for theme in themes:
-        theme = re.search(r"(.+).y" , theme)
-        print(theme.group(1)) 
+    theme_list = [theme for theme in os.listdir("themes")]
+    for i in range(0 , len(theme_list) , 3):
+        for j in range(i , i+3):
+            theme = re.search(r"(.+).y" , theme_list[j]).group(1)
+            print("{}{}".format(theme , " "*20)[:20] , end=" "*5)
+        print()
+    return
 
 #Shows current theme
 def current_theme():
