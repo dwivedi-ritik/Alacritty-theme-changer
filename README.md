@@ -5,7 +5,8 @@
 ``` python
 python alac-theme.py --help
 ```
-![Untitled-5-1080p](https://user-images.githubusercontent.com/58474947/113769904-225a2900-973f-11eb-87d2-39f5bbee92f3.GIF)
+![Untitled-8-1080p](https://user-images.githubusercontent.com/58474947/113978112-28e0c180-9861-11eb-95e4-d75bf150bfd4.GIF)
+
 
 #### For listing out available themes
 
