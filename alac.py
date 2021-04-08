@@ -43,8 +43,15 @@ def changing_theme(usr_theme):
     validate = validate_theme(usr_theme)
     if validate:
         #Reading theme file
-        with open(alacritty_config_path , "r") as f:
-            alacritty_theme = yaml.safe_load(f.read())
+        try:
+            with open(alacritty_config_path , "r") as f:
+                alacritty_theme = yaml.safe_load(f.read())
+        except FileNotFoundError:
+            print("You have not configured alacritty yet!!")
+            usr_f_resp = input("Do you want to use my config?(y/n) ")
+            if usr_f_resp.lower() in ["y" , "yes"]:
+                writing_default_config()
+            return
         #Reading colors of user selected theme
         selected_theme  = reading_theme(validate)
         alacritty_theme["colors"] = selected_theme["colors"]
@@ -54,4 +61,8 @@ def changing_theme(usr_theme):
     else:
         raise Exception("Invalid theme choice")
 
-
+def writing_default_config():
+    with open("alacritty_config.yml" , "r") as rf:
+        default_confg = yaml.safe_load(rf.read())
+    with open(alacritty_config_path , "w") as f:
+        f.write(yaml.dump(default_confg))
