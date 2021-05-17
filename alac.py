@@ -1,71 +1,100 @@
+#!/bin/python
 import yaml
 import os
 import re
+import random
+import time
 
-alacritty_config_path = "{}/.config/alacritty/alacritty.yml".format(os.path.expanduser("~"))
+alacritty_config_path = "{}/.config/alacritty/alacritty.yml".format(
+    os.path.expanduser("~")
+)
 
-#Reading Alacritty Config File from path
+# Reading Alacritty Config File from path
+
+
 def reading_theme(config_path):
     try:
-        with open(config_path , "r") as f:
+        with open(config_path, "r") as f:
             resp = yaml.safe_load(f.read())
             return resp
     except Exception:
         raise Exception("PROVIDE VALID PATH")
 
-#Validating theme
+
+# Validating theme
 def validate_theme(usr_theme):
     for theme in os.listdir("themes"):
-        match = re.search(r"(.+).y" , theme)
+        match = re.search(r"(.+).y", theme)
         if match and match.group(1).lower() == usr_theme.lower():
-            return "themes/"+theme
+            return "themes/" + theme
     return None
 
-#Lisiting Out Available Themes
+
+# Lisiting Out Available Themes
 def list_themes():
     theme_list = [theme for theme in os.listdir("themes")]
-    for i in range(0 , len(theme_list) , 3):
-        for j in range(i , i+3):
-            theme = re.search(r"(.+).y" , theme_list[j]).group(1)
-            print("{}{}".format(theme , " "*20)[:20] , end=" "*5)
+    for i in range(0, len(theme_list), 3):
+        for j in range(i, i + 3):
+            theme = re.search(r"(.+).y", theme_list[j]).group(1)
+            print("{}{}".format(theme, " " * 20)[:20], end=" " * 5)
         print()
     return
 
-#Shows current theme
+
+# Shows current theme
 def current_theme():
     curr = reading_theme(alacritty_config_path)
     for theme_f in os.listdir("themes"):
-        curr_f = reading_theme("themes/"+theme_f)
+        curr_f = reading_theme("themes/" + theme_f)
         if curr["colors"]["primary"] == curr_f["colors"]["primary"]:
-            matched_theme = re.search(r"(.+).y" , theme_f)
+            matched_theme = re.search(r"(.+).y", theme_f)
             return matched_theme.group(1)
     return None
 
-#Changing theme
-def changing_theme(usr_theme):
-    validate = validate_theme(usr_theme)
+
+# Changing theme
+def changing_theme(usr_theme, f_theme=None):
+    if not f_theme:
+        validate = validate_theme(usr_theme)
+    else:
+        validate = "themes/" + f_theme
     if validate:
-        #Reading theme file
+        # Reading theme file
         try:
-            with open(alacritty_config_path , "r") as f:
+            with open(alacritty_config_path, "r") as f:
                 alacritty_theme = yaml.safe_load(f.read())
         except FileNotFoundError:
             print("You have not configured alacritty yet!!")
             usr_f_resp = input("Do you want to use my config?(y/n) ")
-            if usr_f_resp.lower() in ["y" , "yes"]:
+            if usr_f_resp.lower() in ["y", "yes"]:
                 writing_default_config()
             return
-        #Reading colors of user selected theme
-        selected_theme  = reading_theme(validate)
+
+        # Reading colors of user selected theme
+        selected_theme = reading_theme(validate)
         alacritty_theme["colors"] = selected_theme["colors"]
-        #Writng changed path to alacritty config
+
+        # Writing changed path to alacritty config
         with open(alacritty_config_path, "w") as f:
             f.write(yaml.dump(alacritty_theme))
     else:
         raise Exception("Invalid theme choice")
 
+
+# This function is for if usr does't have any configuration setup
 def writing_default_config():
-    with open("alacritty_config.yml" , "r") as rf:
+    with open("alacritty_config.yml", "r") as rf:
         default_confg = yaml.safe_load(rf.read())
-    with open(alacritty_config_path , "w") as f:
+    with open(alacritty_config_path, "w") as f:
         f.write(yaml.dump(default_confg))
+
+
+# This functions will set the random theme of your alacritty terminal
+def disco_term():
+    theme_list = [theme for theme in os.listdir("themes")]
+    last_theme = current_theme()
+    while True:
+        random_theme = random.choice(theme_list)
+        time.sleep(0.5)
+        changing_theme(usr_theme=None, f_theme=random_theme)
+    changing_theme(last_theme)
