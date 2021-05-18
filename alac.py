@@ -93,8 +93,11 @@ def writing_default_config():
 def disco_term():
     theme_list = [theme for theme in os.listdir("themes")]
     last_theme = current_theme()
-    while True:
-        random_theme = random.choice(theme_list)
-        time.sleep(0.5)
-        changing_theme(usr_theme=None, f_theme=random_theme)
-    changing_theme(last_theme)
+    try:
+        while True:
+            random_theme = random.choice(theme_list)
+            time.sleep(0.5)
+            changing_theme(usr_theme=None, f_theme=random_theme)
+    except KeyboardInterrupt:
+        print("RIP DISCO")
+        changing_theme(last_theme)
