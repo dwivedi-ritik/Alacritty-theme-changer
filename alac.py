@@ -90,14 +90,15 @@ def writing_default_config():
 
 
 # This functions will set the random theme of your alacritty terminal
-def disco_term():
+def disco_term(num_of_times , gap_time):
     theme_list = [theme for theme in os.listdir("themes")]
     last_theme = current_theme()
     try:
-        while True:
-            random_theme = random.choice(theme_list)
-            time.sleep(0.5)
+        for _ in range(num_of_times):
+            random_theme = random.choice(theme_list)    
+            time.sleep(gap_time)
             changing_theme(usr_theme=None, f_theme=random_theme)
     except KeyboardInterrupt:
-        print("RIP DISCO")
-        changing_theme(last_theme)
+        print("\nRIP DISCO")
+        pass
+    changing_theme(last_theme)

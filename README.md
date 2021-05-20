@@ -33,17 +33,26 @@ or
 python alac-theme.py --theme breeze
 ```
 
-#### Do Disco
+#### Do some party and disco
+
+Try
 
 ```python
-python alac-theme.py -do
+python alac-theme.py disco --help
+
 ```
 
-or
+this arguments takes two argument
 
-```python
-python alac-theme.py --disco
-```
+`--count [ how many times you want to make transition ]`
+
+`--gap [ time gap of each transition in seconds ]`
+
+by default `python ala-theme.py disco` have 30 count and 0.5 second of transition
+
+you can pass any number and seconds eg-
+
+`python alac-theme.py disco --count 20 --gap 1`
 
 for terminating this script do `ctrl + c`
 
