@@ -9,8 +9,7 @@ python alac-theme.py --help
 ```python
 python alac-theme.py disco --help
 ```
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/58474947/118985488-1c8d6f80-b99c-11eb-82ba-99f0504166a8.gif)
-
+![for2](https://user-images.githubusercontent.com/58474947/118987231-b1dd3380-b99d-11eb-8205-8bde83668285.gif)
 
 
 #### For listing out available themes
