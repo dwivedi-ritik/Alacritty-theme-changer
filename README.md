@@ -9,8 +9,8 @@ python alac-theme.py --help
 ```python
 python alac-theme.py disco --help
 ```
+![2021-05-20 13-59-20](https://user-images.githubusercontent.com/58474947/118960630-1e960500-b981-11eb-9171-9ec25c4025f9.gif)
 
-![Untitled-8-1080p](https://user-images.githubusercontent.com/58474947/113978112-28e0c180-9861-11eb-95e4-d75bf150bfd4.GIF)
 
 #### For listing out available themes
 
