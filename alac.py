@@ -52,7 +52,6 @@ def changing_theme(usr_theme, f_theme=None):
     else:
         validate = "themes/" + f_theme
     if validate:
-        # Reading theme file
         try:
             with open(alacritty_config_path, "r") as f:
                 alacritty_theme = yaml.safe_load(f.read())
@@ -63,11 +62,9 @@ def changing_theme(usr_theme, f_theme=None):
                 writing_default_config()
             return
 
-        # Reading colors of user selected theme
         selected_theme = reading_theme(validate)
         alacritty_theme["colors"] = selected_theme["colors"]
 
-        # Writing changed path to alacritty config
         with open(alacritty_config_path, "w") as f:
             f.write(yaml.dump(alacritty_theme))
     else:
