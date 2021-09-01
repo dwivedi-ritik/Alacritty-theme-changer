@@ -21,19 +21,4 @@ colors:
   primary:
     background: '0x282a36'
     foreground: '0xf8f8f2'
-draw_bold_text_with_bright_colors: true
-font:
-  normal:
-    family: Source Code Pro
-    style: Medium
-  size: 13.0
-window:
-  decorations: none
-  dimensions:
-    columns: 700
-    lines: 600
-  padding:
-    x: 6
-    y: 6
-  startup_mode: Maximized
-  title: alacritty
+

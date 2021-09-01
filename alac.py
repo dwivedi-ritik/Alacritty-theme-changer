@@ -9,9 +9,6 @@ alacritty_config_path = "{}/.config/alacritty/alacritty.yml".format(
     os.path.expanduser("~")
 )
 
-# Reading Alacritty Config File from path
-
-
 def reading_theme(config_path):
     try:
         with open(config_path, "r") as f:
@@ -21,7 +18,6 @@ def reading_theme(config_path):
         raise Exception("PROVIDE VALID PATH")
 
 
-# Validating theme
 def validate_theme(usr_theme):
     for theme in os.listdir("themes"):
         match = re.search(r"(.+).y", theme)
@@ -30,7 +26,6 @@ def validate_theme(usr_theme):
     return None
 
 
-# Lisiting Out Available Themes
 def list_themes():
     theme_list = [theme for theme in os.listdir("themes")]
     for i in range(0, len(theme_list), 3):
@@ -41,7 +36,6 @@ def list_themes():
     return
 
 
-# Shows current theme
 def current_theme():
     curr = reading_theme(alacritty_config_path)
     for theme_f in os.listdir("themes"):
@@ -52,7 +46,6 @@ def current_theme():
     return None
 
 
-# Changing theme
 def changing_theme(usr_theme, f_theme=None):
     if not f_theme:
         validate = validate_theme(usr_theme)
@@ -81,15 +74,17 @@ def changing_theme(usr_theme, f_theme=None):
         raise Exception("Invalid theme choice")
 
 
-# This function is for if usr does't have any configuration setup
 def writing_default_config():
+    usr_dir = os.path.expanduser("~")    
+    if not os.path.exists(alacritty_config_path):
+        os.mkdir(f"{usr_dir}/.config/alacritty")
+
     with open("alacritty_config.yml", "r") as rf:
         default_confg = yaml.safe_load(rf.read())
-    with open(alacritty_config_path, "w") as f:
-        f.write(yaml.dump(default_confg))
+        with open(f"{usr_dir}/.config/alacritty/alacritty.yml", "w") as f:
+            f.write(yaml.dump(default_confg))
 
 
-# This functions will set the random theme of your alacritty terminal
 def disco_term(num_of_times , gap_time):
     theme_list = [theme for theme in os.listdir("themes")]
     last_theme = current_theme()
